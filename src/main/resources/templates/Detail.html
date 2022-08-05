@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.15.3/dist/full.css"
+	rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.15.3/dist/full.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+	rel="stylesheet" type="text/css" />
+<!--=============== FAVICON ===============-->
+<link rel="shortcut icon" href="/assets/img/favicon.png"
+	type="image/x-icon">
+<!--=============== BOXICONS ===============-->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+<!--=============== SWIPER CSS ===============-->
+<link rel="stylesheet" href="a/ssets/css/swiper-bundle.min.css">
+<!--=============== CSS ===============-->
+<link rel="stylesheet" href="/assets/css/cart.css">
+<title>Responsive watches website - Bedimcode</title>
+</head>
+<body>
+	<!--==================== HEADER ====================-->
+	<header class="header" id="header">
+		<nav class="nav container">
+			<a th:href="@{/TrangChu}" class="nav__logo"> <i
+				class='bx bxs-watch nav__logo-icon'></i> <strong>Rolex</strong>
+			</a>
+			<div class="nav__menu" id="nav-menu">
+				<ul class="nav__list">
+					<li class="nav__item"><a href="#home"
+						class="nav__link active-link">Home</a></li>
+					<li class="nav__item"><a href="#featured" class="nav__link">Featured</a>
+					</li>
+					<li class="nav__item"><a href="#products" class="nav__link">Products</a>
+					</li>
+					<li class="nav__item"><a href="#new" class="nav__link">New</a>
+					</li>
+				</ul>
+				<div class="nav__close" id="nav-close">
+					<i class='bx bx-x'></i>
+				</div>
+			</div>
+			<div class="nav__btns">
+				<!-- Theme change button -->
+				<i class='bx bx-moon change-theme' id="theme-button"></i>
+				<div class="nav__shop">
+					<i class='bx bx-shopping-bag'></i>
+				</div>
+				<div class="nav__toggle" id="nav-toggle">
+					<i class='bx bx-grid-alt'></i>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!--==================== CART ====================-->
+	<!--==================== MAIN ====================-->
+	<div class="container mx-100">
+		<div class="container" style="margin: 10px auto;">
+			<form th:action="@{/TrangChu/User/Detail}" method="get">
+				<ul class="flex border-b border-gray-100">
+					<li class="flex-1"><button name="status" th:value="pending"
+							class="relative block p-4">
+							<span th:if="${pending}"
+								class="absolute inset-x-0 w-full h-px bg-pink-600 -bottom-px"></span>
+							<div class="flex items-center justify-center">
+								<svg xmlns="http://www.w3.org/2000/svg"
+									class="flex-shrink-0 w-5 h-5 text-gray-500" fill="none"
+									viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round"
+										stroke-linejoin="round" stroke-width="2"
+										d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                    </svg>
+								<span class="ml-3 text-sm font-medium text-gray-900">Đơn
+									Hàng Đang Xử Lý</span>
+							</div>
+						</button></li>
+					<li class="flex-1"><button name="status" th:value="packing"
+							class="relative block p-4">
+							<span th:if="${packing}"
+								class="absolute inset-x-0 w-full h-px bg-pink-600 -bottom-px"></span>
+							<div class="flex items-center justify-center">
+								<svg xmlns="http://www.w3.org/2000/svg"
+									class="flex-shrink-0 w-5 h-5 text-gray-500" fill="none"
+									viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round"
+										stroke-linejoin="round" stroke-width="2"
+										d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                        </svg>
+								<span class="ml-3 text-sm font-medium text-gray-900">Đang
+									Đóng Gói Và Vận Chuyển</span>
+							</div>
+						</button></li>
+					<li class="flex-1"><button name="status" th:value="success"
+							class="relative block p-4">
+							<span th:if="${success}"
+								class="absolute inset-x-0 w-full h-px bg-pink-600 -bottom-px"></span>
+							<div class="flex items-center justify-center">
+								<svg xmlns="http://www.w3.org/2000/svg"
+									class="flex-shrink-0 w-5 h-5 text-gray-500" fill="none"
+									viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round"
+										stroke-linejoin="round" stroke-width="2"
+										d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                            </svg>
+								<span class="ml-3 text-sm font-medium text-gray-900">Giao
+									Hàng Thành Công</span>
+							</div>
+						</button></li>
+					<li class="flex-1"><button name="status" th:value="cancel"
+							class="relative block p-4">
+							<span th:if="${cancel}"
+								class="absolute inset-x-0 w-full h-px bg-pink-600 -bottom-px"></span>
+							<div class="flex items-center justify-center">
+								<svg xmlns="http://www.w3.org/2000/svg"
+									class="flex-shrink-0 w-5 h-5 text-gray-500" fill="none"
+									viewBox="0 0 24 24" stroke="currentColor">
+                                                <path
+										stroke-linecap="round" stroke-linejoin="round"
+										stroke-width="2"
+										d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                                </svg>
+								<span class="ml-3 text-sm font-medium text-gray-900"> Huỷ
+									Đơn Hàng</span>
+							</div>
+						</button></li>
+				</ul>
+			</form>
+			<br>
+			<div class="overflow-x-auto">
+				<table class="min-w-full text-sm divide-y divide-gray-200">
+					<thead>
+						<tr>
+							<th
+								class="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+								<div class="flex items-center">
+									Mã Đơn Hàng
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4 ml-1.5 text-gray-700" viewBox="0 0 20 20"
+										fill="currentColor">
+                                                            <path
+											fill-rule="evenodd"
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+                                                            </svg>
+								</div>
+							</th>
+							<th
+								class="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+								<div class="flex items-center">
+									Sản Phẩm Mua
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4 ml-1.5 text-gray-700" viewBox="0 0 20 20"
+										fill="currentColor">
+                                                                <path
+											fill-rule="evenodd"
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+                                                                </svg>
+								</div>
+							</th>
+							<th
+								class="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+								<div class="flex items-center">
+									Tổng Đơn Hàng
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4 ml-1.5 text-gray-700" viewBox="0 0 20 20"
+										fill="currentColor">
+                                                                    <path
+											fill-rule="evenodd"
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+                                                                    </svg>
+								</div>
+							</th>
+							<th
+								class="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+								<div class="flex items-center">
+									Trạng Thái
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4 ml-1.5 text-gray-700" viewBox="0 0 20 20"
+										fill="currentColor">
+                                                                        <path
+											fill-rule="evenodd"
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+                                                                        </svg>
+								</div>
+							</th>
+							<th
+								class="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+								<div class="flex items-center">
+									Ngày Mua Hàng
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4 ml-1.5 text-gray-700" viewBox="0 0 20 20"
+										fill="currentColor">
+                                                                            <path
+											fill-rule="evenodd"
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+                                                                            </svg>
+								</div>
+							</th>
+							<th th:if="${packing}"
+								class="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+								<div class="flex items-center">
+									Ngày Xác Nhận
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4 ml-1.5 text-gray-700" viewBox="0 0 20 20"
+										fill="currentColor">
+                                                                            <path
+											fill-rule="evenodd"
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+                                                                            </svg>
+								</div>
+							</th>
+							<th th:if="${success}"
+								class="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+								<div class="flex items-center">
+									Ngày Giao Hàng
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4 ml-1.5 text-gray-700" viewBox="0 0 20 20"
+										fill="currentColor">
+                                                                            <path
+											fill-rule="evenodd"
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+                                                                            </svg>
+								</div>
+							</th>
+							<th th:if="${cancel}"
+								class="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+								<div class="flex items-center">
+									Ngày Huỷ
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4 ml-1.5 text-gray-700" viewBox="0 0 20 20"
+										fill="currentColor">
+                                                                            <path
+											fill-rule="evenodd"
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+                                                                            </svg>
+								</div>
+							</th>
+							<th
+								class="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+								<div class="flex items-center">
+
+									<svg xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4 ml-1.5 text-gray-700" viewBox="0 0 20 20"
+										fill="currentColor">
+                                                                                <path
+											fill-rule="evenodd"
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+                                                                                </svg>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-gray-100">
+						<tr th:each="item:${list}">
+							<td class="p-4 font-medium text-gray-900 whitespace-nowrap">
+								<strong th:text="${item.ma}" />
+							</td>
+							<td class="p-4 text-gray-700 whitespace-nowrap">
+								<ul>
+									<li th:each="sp:${item.details}"><strong
+										th:text="${sp.product.name+' x'+sp.quantity}" /><li>
+								
+								</ul>
+							</td>
+							<td class="p-4 text-gray-700 whitespace-nowrap"><strong
+								th:text="${'$'+item.totalOrder}" /></td>
+							<td class="p-4 text-gray-700 whitespace-nowrap"><strong
+								th:if="${pending}"
+								class="bg-amber-100 text-amber-700 px-3 py-1.5 rounded text-xs font-medium">
+									Pending </strong> <strong th:if="${packing}"
+								class="bg-amber-100 text-amber-700 px-3 py-1.5 rounded text-xs font-medium">
+									Packing </strong> <strong th:if="${success}"
+								class="bg-green-100 text-green-700 px-3 py-1.5 rounded text-xs font-medium">
+									Success</strong> <strong th:if="${cancel}"
+								class="bg-red-100 text-red-700 px-3 py-1.5 rounded text-xs font-medium">
+									Cancel </strong></td>
+							<td class="p-4 text-gray-700 whitespace-nowrap"><strong
+								th:text="${item.details[0].ngaymua}" /></td>
+							<td th:if="${packing}"
+								class="p-4 text-gray-700 whitespace-nowrap"><strong
+								th:text="${item.details[0].dateStatus}" /></td>
+							<td th:if="${success}"
+								class="p-4 text-gray-700 whitespace-nowrap"><strong
+								th:text="${item.details[0].dateStatus}" /></td>
+							<td th:if="${cancel}"
+								class="p-4 text-gray-700 whitespace-nowrap"><strong
+								th:text="${item.details[0].dateStatus}" /></td>
+							<td class="p-4 text-gray-700 whitespace-nowrap"><a
+								th:if="${pending}"
+								th:href="@{'/TrangChu/User/Detail/St?st=huy&hd='+${item.ma}}">Huỷ
+									Đơn</a> <a th:if="${packing}"
+								th:href="@{'/TrangChu/User/Detail/St?st=huy&hd='+${item.ma}}">Huỷ
+									Đơn</a> <a th:if="${success}"
+								th:href="@{'/TrangChu/User/Detail/St?st=xoa&hd='+${item.ma}}">Xoá
+									Đơn</a> <a th:if="${cancel}"
+								th:href="@{'/TrangChu/User/Detail/St?st=mualai&hd='+${item.ma}}">Mua
+									Lại</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!--==================== FOOTER ====================-->
+	<footer class="footer section">
+		<div class="footer__container container grid">
+			<div class="footer__content">
+				<h3 class="footer__title">Our information</h3>
+				<ul class="footer__list">
+					<li>1234 - Peru</li>
+					<li>La Libertad 43210</li>
+					<li>123-456-789</li>
+				</ul>
+			</div>
+			<div class="footer__content">
+				<h3 class="footer__title">About Us</h3>
+				<ul class="footer__links">
+					<li><a href="#" class="footer__link">Support Center</a></li>
+					<li><a href="#" class="footer__link">Customer Support</a></li>
+					<li><a href="#" class="footer__link">About Us</a></li>
+					<li><a href="#" class="footer__link">Copy Right</a></li>
+				</ul>
+			</div>
+			<div class="footer__content">
+				<h3 class="footer__title">Product</h3>
+				<ul class="footer__links">
+					<li><a href="#" class="footer__link">Road bikes</a></li>
+					<li><a href="#" class="footer__link">Mountain bikes</a></li>
+					<li><a href="#" class="footer__link">Electric</a></li>
+					<li><a href="#" class="footer__link">Accesories</a></li>
+				</ul>
+			</div>
+			<div class="footer__content">
+				<h3 class="footer__title">Social</h3>
+				<ul class="footer__social">
+					<a href="https://www.facebook.com/" target="_blank"
+						class="footer__social-link"> <i class='bx bxl-facebook'></i>
+					</a>
+					<a href="https://twitter.com/" target="_blank"
+						class="footer__social-link"> <i class='bx bxl-twitter'></i>
+					</a>
+					<a href="https://www.instagram.com/" target="_blank"
+						class="footer__social-link"> <i class='bx bxl-instagram'></i>
+					</a>
+				</ul>
+			</div>
+		</div>
+		<span class="footer__copy">&#169; Bedimcode. All rigths
+			reserved</span>
+	</footer>
+	<!--=============== SCROLL UP ===============-->
+	<a href="#" class="scrollup" id="scroll-up"> <i
+		class='bx bx-up-arrow-alt scrollup__icon'></i>
+	</a>
+	<!--=============== SWIPER JS ===============-->
+	<script src="/assets/js/swiper-bundle.min.js"></script>
+	<!--=============== MAIN JS ===============-->
+	<script src="/assets/js/main.js"></script>
+</body>
+</html>

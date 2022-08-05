@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.15.3/dist/full.css"
+	rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.15.3/dist/full.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+	rel="stylesheet" type="text/css" />
+<!--=============== FAVICON ===============-->
+<link rel="shortcut icon" href="/assets/img/favicon.png"
+	type="image/x-icon">
+<!--=============== BOXICONS ===============-->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+<!--=============== SWIPER CSS ===============-->
+<link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
+<!--=============== CSS ===============-->
+<link rel="stylesheet" href="/assets/css/cart.css">
+<title>Responsive watches website - Bedimcode</title>
+</head>
+<body>
+	<!--==================== HEADER ====================-->
+	<header class="header" id="header">
+		<nav class="nav container">
+			<a href="#" class="nav__logo"> <i
+				class='bx bxs-watch nav__logo-icon'></i> <strong>Rolex</strong>
+			</a>
+			<div class="nav__menu" id="nav-menu">
+				<ul class="nav__list">
+					<li class="nav__item"><a href="#home"
+						class="nav__link active-link">Home</a></li>
+					<li class="nav__item"><a href="#featured" class="nav__link">Featured</a>
+					</li>
+					<li class="nav__item"><a href="#products" class="nav__link">Products</a>
+					</li>
+					<li class="nav__item"><a href="#new" class="nav__link">New</a>
+					</li>
+				</ul>
+				<div class="nav__close" id="nav-close">
+					<i class='bx bx-x'></i>
+				</div>
+			</div>
+			<div class="nav__btns">
+				<!-- Theme change button -->
+				<i class='bx bx-moon change-theme' id="theme-button"></i>
+				<div class="nav__shop">
+					<i class='bx bx-shopping-bag'></i>
+				</div>
+				<div class="nav__toggle" id="nav-toggle">
+					<i class='bx bx-grid-alt'></i>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!--==================== CART ====================-->
+	<!--==================== MAIN ====================-->
+	<div class="container mx-100">
+		<div>
+			<div style="width: 1000px; margin: 10px auto;"
+				class="card w-96 bg-base-100 shadow-xl">
+				<section>
+					<div class="relative mx-auto max-w-screen-2xl">
+						<div class="grid grid-cols-1 md:grid-cols-2">
+							<div class="py-12 bg-gray-50 md:py-24">
+								<div class="max-w-lg px-4 mx-auto lg:px-8">
+									<div class="mt-8">
+										<p class="mt-2 text-3xl font-bold sm:text-5xl"
+											style="top: -50px; position: relative; line-height: 0px;">
+											Order Detail</p>
+										<p class="text-2xl font-medium tracking-tight"
+											th:text="${'Total: $'+total}" />
+										<p class="mt-1 text-sm text-gray-500">For the purchase of</p>
+									</div>
+									<div class="mt-12">
+										<div class="flow-root">
+											<ul class="-my-4 divide-y divide-gray-200">
+												<li th:each="item :${cartitem}"
+													class="flex items-center justify-between py-4">
+													<div class="flex items-start">
+														<img
+															class="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
+															th:src="${item.product.image}" alt="" />
+														<div class="ml-4">
+															<p class="text-sm" th:text="${item.product.name}" />
+															<dl class="mt-1 space-y-1 text-xs text-gray-500">
+																<div>
+																	<dt class="inline">Color:</dt>
+																	<dd class="inline">Blue</dd>
+																</div>
+																<div>
+																	<dt class="inline">Size:</dt>
+																	<dd class="inline">UK 10</dd>
+																</div>
+															</dl>
+														</div>
+													</div>
+													<div>
+														<p class="text-sm">
+															<strong><th:block
+																	th:text="${'$'+item.product.price}" /></strong> <strong><small
+																class="text-gray-500" th:text="${' x'+item.quantity}" /></strong>
+														</p>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="py-12 bg-white md:py-24">
+								<div class="max-w-lg px-4 mx-auto lg:px-8">
+									<form class="grid grid-cols-6 gap-4">
+										<div class="col-span-6">
+											<label class="block mb-1 text-sm text-gray-600" for="email">
+												Tên Người Nhận: </label> <input th:value="${account.fullname}"
+												class="rounded-lg shadow-sm border-gray-200 w-full text-sm p-2.5"
+												type="email" id="email" />
+										</div>
+										<div class="col-span-6">
+											<label class="block mb-1 text-sm text-gray-600" for="email">
+												Email </label> <input th:value="${account.email}"
+												class="rounded-lg shadow-sm border-gray-200 w-full text-sm p-2.5"
+												type="email" id="email" />
+										</div>
+										<div class="col-span-6">
+											<label class="block mb-1 text-sm text-gray-600" for="phone">
+												Phone </label> <input th:value="${account.sdt}"
+												class="rounded-lg shadow-sm border-gray-200 w-full text-sm p-2.5"
+												type="tel" id="phone" />
+										</div>
+										<div class="col-span-6">
+											<label class="block mb-1 text-sm text-gray-600" for="phone">
+												Address </label> <input th:value="${account.diachi}"
+												class="rounded-lg shadow-sm border-gray-200 w-full text-sm p-2.5"
+												type="tel" id="phone" />
+										</div>
+										<div class="col-span-3" style="text-align: center;">
+											<a th:href="@{/TrangChu/Cart}"
+												class="rounded-lg bg-black text-sm p-2.5 text-white w-full block">Cancel</a>
+										</div>
+										<div class="col-span-3" style="text-align: center;">
+											<label for="my-modal-6"
+												class="rounded-lg bg-black text-sm p-2.5 text-white w-full block">PAY
+												NOW</label>
+											<!-- Put this part before </body> tag -->
+											<input type="checkbox" id="my-modal-6" class="modal-toggle" />
+											<div class="modal modal-bottom sm:modal-middle">
+												<div class="modal-box">
+													<h3 class="font-bold text-lg">Đã tạo đơn hàng thành công!</h3>
+													<img alt="..." width="50%" style="margin: 0 auto;"
+														src="https://www.geo-travel.gr/wp-content/uploads/2020/05/thank-you.gif">
+													<h3 class="font-bold text-lg">❤️ CẢM ƠN QUÝ KHÁCH ĐÃ MUA HÀNG ❤️</h3>
+													<div class="modal-action">
+														<a th:href="@{/TrangChu/Order/Pay}"><label class="btn">Yay!</label></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+
+	<!--==================== FOOTER ====================-->
+	<footer class="footer section">
+		<div class="footer__container container grid">
+			<div class="footer__content">
+				<h3 class="footer__title">Our information</h3>
+				<ul class="footer__list">
+					<li>1234 - Peru</li>
+					<li>La Libertad 43210</li>
+					<li>123-456-789</li>
+				</ul>
+			</div>
+			<div class="footer__content">
+				<h3 class="footer__title">About Us</h3>
+				<ul class="footer__links">
+					<li><a href="#" class="footer__link">Support Center</a></li>
+					<li><a href="#" class="footer__link">Customer Support</a></li>
+					<li><a href="#" class="footer__link">About Us</a></li>
+					<li><a href="#" class="footer__link">Copy Right</a></li>
+				</ul>
+			</div>
+			<div class="footer__content">
+				<h3 class="footer__title">Product</h3>
+				<ul class="footer__links">
+					<li><a href="#" class="footer__link">Road bikes</a></li>
+					<li><a href="#" class="footer__link">Mountain bikes</a></li>
+					<li><a href="#" class="footer__link">Electric</a></li>
+					<li><a href="#" class="footer__link">Accesories</a></li>
+				</ul>
+			</div>
+			<div class="footer__content">
+				<h3 class="footer__title">Social</h3>
+				<ul class="footer__social">
+					<a href="https://www.facebook.com/" target="_blank"
+						class="footer__social-link"> <i class='bx bxl-facebook'></i>
+					</a>
+					<a href="https://twitter.com/" target="_blank"
+						class="footer__social-link"> <i class='bx bxl-twitter'></i>
+					</a>
+					<a href="https://www.instagram.com/" target="_blank"
+						class="footer__social-link"> <i class='bx bxl-instagram'></i>
+					</a>
+				</ul>
+			</div>
+		</div>
+		<span class="footer__copy">&#169; Bedimcode. All rigths
+			reserved</span>
+	</footer>
+	<!--=============== SCROLL UP ===============-->
+	<a href="#" class="scrollup" id="scroll-up"> <i
+		class='bx bx-up-arrow-alt scrollup__icon'></i>
+	</a>
+	<!--=============== SWIPER JS ===============-->
+	<script src="/assets/js/swiper-bundle.min.js"></script>
+	<!--=============== MAIN JS ===============-->
+	<script src="/assets/js/main.js"></script>
+</body>
+</html>

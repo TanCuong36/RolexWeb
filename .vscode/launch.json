@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AsmJava5Application<ASM_JAVA5>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.fpt.AsmJava5Application",
+            "projectName": "ASM_JAVA5",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

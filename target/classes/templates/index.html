@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/uikit@3.14.1/dist/css/uikit.min.css" />
+<!-- UIkit JS -->
+<script
+	src="https://cdn.jsdelivr.net/npm/uikit@3.14.1/dist/js/uikit.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/uikit@3.14.1/dist/js/uikit-icons.min.js"></script>
+<!--=============== FAVICON ===============-->
+<link rel="shortcut icon" href="assets/img/favicon.png"
+	type="image/x-icon">
+<!--=============== BOXICONS ===============-->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+<!--=============== SWIPER CSS ===============-->
+<link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+<!--=============== CSS ===============-->
+<link rel="stylesheet" href="assets/css/styles.css">
+<title>Responsive watches website - Bedimcode</title>
+</head>
+<body>
+	<!--==================== HEADER ====================-->
+	<header class="header" id="header">
+		<nav class="nav container">
+			<a th:href="@{/TrangChu}" class="nav__logo"> <i
+				class='bx bxs-watch nav__logo-icon'></i> <strong>Rolex</strong>
+			</a>
+			<div class="nav__menu" id="nav-menu">
+				<ul class="nav__list">
+					<li class="nav__item"><a href="#home"
+						class="nav__link active-link">Home</a></li>
+					<li class="nav__item"><a href="#featured" class="nav__link">Featured</a>
+					</li>
+					<li class="nav__item"><a th:href="@{/TrangChu/Product}"
+						class="nav__link">Products</a></li>
+					<li class="nav__item"><a href="#new" class="nav__link">New</a>
+					</li>
+				</ul>
+				<div class="nav__close" id="nav-close">
+					<i class='bx bx-x'></i>
+				</div>
+			</div>
+			<div class="nav__btns">
+				<!-- Theme change button -->
+				<i class='bx bx-moon change-theme' id="theme-button"></i>
+
+				<!-- Off-Canvas -->
+
+				<th:block th:if="${navlogin}">
+					<i class='bx bx-user change-theme'
+						uk-toggle="target: #offcanvas-reveal"></i>
+					<div id="offcanvas-reveal"
+						uk-offcanvas="mode: reveal; overlay: true">
+						<div class="uk-offcanvas-bar">
+							<button class="uk-offcanvas-close" type="button" uk-close></button>
+							<!-- <ul class="uk-nav uk-dropdown-nav">
+								<li><strong><a href="#">Thông Tin Cá Nhân </a></strong></li>
+								<li><strong><a href="#">Thông Tin Đơn Hàng</a></strong></li>
+								<li><strong><a >Đăng Xuất</a></strong></li>
+								<li class="uk-nav-divider"></li>
+								<li><strong>XIN CHÀO</strong></li>
+								<li><strong><span th:text="${account.fullname}" /></strong></li>
+								<li><strong><span th:text="${account.email}" /></strong></li>
+							</ul> -->
+							<div class="uk-offcanvas-bar uk-flex uk-flex-column">
+								<ul
+									class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
+									<li class="uk-active"><div
+											style="margin: 0 auto; width: 100px; height: 100px;">
+											<img th:src="${account.image}" style="border-radius: 100%">
+										</div></li>
+									<br>
+									<li class="uk-parent"><a th:text="${account.fullname}" />
+										<ul class="uk-nav-sub">
+											<li><em th:text="${account.email}" /></li>
+										</ul></li>
+									<li class="uk-nav-header">WELLCOME!!!</li>
+									<li><a href="#"><span class="uk-margin-small-right"
+											uk-icon="icon: table"></span>Thông Tin Cá Nhân</a></li>
+									<li><a th:href="@{/TrangChu/User/Detail}"><span
+											class="uk-margin-small-right" uk-icon="icon: thumbnails"></span>Thông
+											Tin Đơn Hàng</a></li>
+									<li class="uk-nav-divider"></li>
+									<li><a th:href="@{/Logout}"><span
+											class="uk-margin-small-right" uk-icon="icon: trash"></span>Logout</a></li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+				</th:block>
+				<th:block th:if="${checkdn}">
+					<div class="uk-inline">
+						<i class='bx bx-user change-theme'><button></button></i>
+						<div uk-dropdown="pos: top-center">
+							<ul class="uk-nav uk-dropdown-nav">
+								<li class="uk-active"><a th:href="@{/Login}">LOGIN</a></li>
+								<li class="uk-nav-divider"></li>
+								<li class="uk-active"><a th:href="@{/Register}">REGISTER</a></li>
+								<li class="uk-nav-divider"></li>
+								<li class="uk-active"><a href="#">FORGOT PASSWORD</a></li>
+								<li class="uk-nav-divider"></li>
+							</ul>
+						</div>
+					</div>
+				</th:block>
+				<!-- End Off-Canvas -->
+				<!-- CART -->
+				<th:block th:if="${navlogin}">
+					<div class="nav__shop" id="cart-shop">
+						<i class='bx bx-shopping-bag'></i>
+					</div>
+				</th:block>
+				<th:block th:if="${checkdn}">
+					<div class="nav__shop" id="js-modal-confirm">
+						<label for="Cartbutton"><i class='bx bx-shopping-bag'></i></label>
+					</div>
+				</th:block>
+				<p uk-margin>
+					<script>
+						UIkit.util
+								.on(
+										'#js-modal-confirm',
+										'click',
+										function(e) {
+											e.preventDefault();
+											e.target.blur();
+											UIkit.modal
+													.confirm(
+															'Vui Lòng Đăng Nhập Để Xem Thông Tin Giỏ Hàng!')
+													.then(
+															function() {
+																console
+																		.log('Confirmed.')
+															},
+															function() {
+																console
+																		.log('Rejected.')
+															});
+										});
+					</script>
+				</p>
+
+				<th:block th:if="${nologin}">
+					<div class="uk-alert-danger" uk-alert>
+						<a class="uk-alert-close" uk-close></a>
+						<p>Vui Lòng Đăng Nhập Để Thêm Sản Phẩm Vào Giỏ.</p>
+					</div>
+				</th:block>
+
+				<!-- END CART -->
+				<div class="nav__toggle" id="nav-toggle">
+					<i class='bx bx-grid-alt'></i>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!--==================== CART ====================-->
+	<div class="cart" id="cart">
+		<label for="Cartbutton"><i class='bx bx-x cart__close'
+			id="cart-close"></i></label>
+		<h2 class="cart__title-center">My Cart</h2>
+		<div class="cart__container">
+			<article class="cart__card" th:each="item:${cartitem}">
+				<div class="cart__box">
+					<img th:src="${item.product.image}" alt="" class="cart__img">
+				</div>
+				<div class="cart__details">
+					<h3 class="cart__title" th:text="${item.product.name}" />
+					<span class="cart__price" th:text="${'$'+item.product.price}" />
+					<div class="cart__amount">
+						<div class="cart__amount-content">
+							<a th:href="@{'/cart?nut=cartminus&id='+${item.product.id}}">
+								<span class="cart__amount-box"> <i class='bx bx-minus'></i>
+							</span>
+							</a> <span class="cart__amount-number" th:text="${item.quantity}" />
+							<a th:href="@{'/cart?nut=cartadd&id='+${item.product.id}}"> <span
+								class="cart__amount-box"> <i class='bx bx-plus'> </i>
+							</span>
+							</a>
+						</div>
+						<a th:href="@{'TrangChu/tch/Removecart?id='+${item.product.id}}"><i
+							class='bx bx-trash-alt cart__amount-trash'></i></a>
+					</div>
+				</div>
+			</article>
+		</div>
+		<hr class="uk-divider-icon">
+		<div class="cart__prices">
+			<span class="cart__prices-item" th:text="${totalitem+' Item'}" /><span
+				class="cart__prices-total" th:text="${'Total: '+total+'$'}" />
+		</div>
+		<div class="button_footer">
+			<div class="uk-button-group">
+				<button class="uk-button-text" id="button-close"
+					style="margin-right: 130px">Back To Shop</button>
+				<a th:href="@{TrangChu/Cart}" class="uk-button uk-button-secondary">VIEW
+					CART</a>
+			</div>
+		</div>
+	</div>
+	<!--==================== MAIN ====================-->
+	<main class="main">
+		<!--==================== HOME ====================-->
+		<section class="home" id="home">
+			<div class="home__container container grid">
+				<div class="home__social">
+					<a href="https://www.facebook.com/" target="_blank"
+						class="home__social-link"> Facebook </a> <a
+						href="https://twitter.com/" target="_blank"
+						class="home__social-link"> Twitter </a> <a
+						href="https://www.instagram.com/" target="_blank"
+						class="home__social-link"> Instagram </a>
+				</div>
+
+				<div class="home__data">
+					<h1 class="home__title">
+						NEW WATCH <br> COLLECTIONS B720
+					</h1>
+					<p class="home__description">Latest arrival of the new imported
+						watches of the B720 series, with a modern and resistant design.</p>
+					<span class="home__price">$1245</span>
+					<div class="home__btns">
+						<a href="#" class="button button--gray button--small">
+							Discover </a>
+						<button class="button home__button">ADD TO CART</button>
+					</div>
+				</div>
+				<div
+					uk-scrollspy="target: > div; cls: uk-animation-fade; delay: 500">
+					<div uk-scrollspy-class="uk-animation-slide-top">
+						<div class="home__img-bg">
+							<img src="assets/img/home.png" alt="" class="home__img">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--==================== TOP 3 BEST SALE ====================-->
+		<section class="featured section container" id="featured">
+			<h2 class="section__title">TOP 3 BEST SALE</h2>
+			<div class="featured__container grid">
+				<article class="featured__card" th:each="item: ${producttop3}">
+					<span class="featured__tag">Sale</span> <img
+						th:src="${item.image}" alt="" class="featured__img">
+					<div class="featured__data">
+						<h3 class="featured__title" th:text="${item.name}" />
+						<span class="featured__price" th:text="${'$'+item.price}" />
+					</div>
+					<a th:href="@{'/TrangChu/Addcart?id='+${item.id}}"><button
+							class="button featured__button">ADD TO CART</button></a>
+				</article>
+			</div>
+			<center>
+				<a th:href="@{/TrangChu/Product}"><button class="uk-button uk-button-secondary">View
+						More</button></a>
+			</center>
+
+		</section>
+		<!--==================== STORY ====================-->
+		<section class="story section container">
+			<div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
+				<!-- <div class="story__container grid"> -->
+				<div>
+					<div class="uk-card uk-card-body"
+						uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
+						<div class="story__images">
+							<img src="assets/img/story.png" alt="" class="story__img">
+							<div class="story__square"></div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="uk-card uk-card-body"
+						uk-scrollspy="cls: uk-animation-slide-left; repeat: true">
+						<div class="story__data">
+							<h2 class="section__title story__section-title">Our Story</h2>
+
+							<h1 class="story__title">
+								Inspirational Watch of <br> this year
+							</h1>
+
+							<p class="story__description">The latest and modern watches
+								of this year, is available in various presentations in this
+								store, discover them now.</p>
+
+							<a href="#" class="button button--small">Discover</a>
+						</div>
+					</div>
+				</div>
+				<!-- </div> -->
+			</div>
+		</section>
+		<!--==================== PRODUCTS ====================-->
+		<section class="products section container" id="products">
+			<h2 class="section__title">Products</h2>
+			<div class="products__container grid">
+				<article class="products__card" th:each="item:${producttop6}">
+					<img th:src="${item.image}" alt="" class="products__img">
+					<h3 class="products__title" th:text="${item.name}" />
+					<span class="products__price" th:text="${'$'+item.price}" /> <a
+						th:href="@{'/TrangChu/Addcart?id='+${item.id}}"><button
+							class="products__button">
+							<i class='bx bx-shopping-bag'></i>
+						</button></a>
+				</article>
+			</div>
+		</section>
+		<!--==================== TESTIMONIAL ====================-->
+		<section class="testimonial section container">
+			<div class="testimonial__container grid">
+				<div class="swiper testimonial-swiper">
+					<div class="swiper-wrapper">
+						<div class="testimonial__card swiper-slide">
+							<div class="testimonial__quote">
+								<i class='bx bxs-quote-alt-left'></i>
+							</div>
+							<p class="testimonial__description">They are the best watches
+								that one acquires, also they are always with the latest news and
+								trends, with a very comfortable price and especially with the
+								attention you receive, they are always attentive to your
+								questions.</p>
+							<h3 class="testimonial__date">March 27. 2021</h3>
+
+							<div class="testimonial__perfil">
+								<img src="assets/img/testimonial1.jpg" alt=""
+									class="testimonial__perfil-img">
+
+								<div class="testimonial__perfil-data">
+									<span class="testimonial__perfil-name">Lee Doe</span> <span
+										class="testimonial__perfil-detail">Director of a
+										company</span>
+								</div>
+							</div>
+						</div>
+						<div class="testimonial__card swiper-slide">
+							<div class="testimonial__quote">
+								<i class='bx bxs-quote-alt-left'></i>
+							</div>
+							<p class="testimonial__description">They are the best watches
+								that one acquires, also they are always with the latest news and
+								trends, with a very comfortable price and especially with the
+								attention you receive, they are always attentive to your
+								questions.</p>
+							<h3 class="testimonial__date">March 27. 2021</h3>
+
+							<div class="testimonial__perfil">
+								<img src="assets/img/testimonial2.jpg" alt=""
+									class="testimonial__perfil-img">
+
+								<div class="testimonial__perfil-data">
+									<span class="testimonial__perfil-name">Samantha Mey</span> <span
+										class="testimonial__perfil-detail">Director of a
+										company</span>
+								</div>
+							</div>
+						</div>
+						<div class="testimonial__card swiper-slide">
+							<div class="testimonial__quote">
+								<i class='bx bxs-quote-alt-left'></i>
+							</div>
+							<p class="testimonial__description">They are the best watches
+								that one acquires, also they are always with the latest news and
+								trends, with a very comfortable price and especially with the
+								attention you receive, they are always attentive to your
+								questions.</p>
+							<h3 class="testimonial__date">March 27. 2021</h3>
+
+							<div class="testimonial__perfil">
+								<img src="assets/img/testimonial3.jpg" alt=""
+									class="testimonial__perfil-img">
+
+								<div class="testimonial__perfil-data">
+									<span class="testimonial__perfil-name">Raul Zaman</span> <span
+										class="testimonial__perfil-detail">Director of a
+										company</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="swiper-button-next">
+						<i class='bx bx-right-arrow-alt'></i>
+					</div>
+					<div class="swiper-button-prev">
+						<i class='bx bx-left-arrow-alt'></i>
+					</div>
+				</div>
+				<div class="testimonial__images">
+					<div class="testimonial__square"></div>
+					<img src="assets/img/testimonial.png" alt=""
+						class="testimonial__img">
+				</div>
+			</div>
+		</section>
+		<!--==================== NEW ====================-->
+		<section class="new section container" id="new">
+			<h2 class="section__title">New Arrivals</h2>
+
+			<div class="new__container">
+				<div class="swiper new-swiper">
+					<div class="swiper-wrapper">
+						<article class="new__card swiper-slide">
+							<span class="new__tag">New</span> <img src="assets/img/new1.png"
+								alt="" class="new__img">
+
+							<div class="new__data">
+								<h3 class="new__title">Longines rose</h3>
+								<span class="new__price">$980</span>
+							</div>
+
+							<button class="button new__button">ADD TO CART</button>
+						</article>
+						<article class="new__card swiper-slide">
+							<span class="new__tag">New</span> <img src="assets/img/new2.png"
+								alt="" class="new__img">
+
+							<div class="new__data">
+								<h3 class="new__title">Jazzmaster</h3>
+								<span class="new__price">$1150</span>
+							</div>
+
+							<button class="button new__button">ADD TO CART</button>
+						</article>
+						<article class="new__card swiper-slide">
+							<span class="new__tag">New</span> <img src="assets/img/new3.png"
+								alt="" class="new__img">
+
+							<div class="new__data">
+								<h3 class="new__title">Dreyfuss gold</h3>
+								<span class="new__price">$750</span>
+							</div>
+
+							<button class="button new__button">ADD TO CART</button>
+						</article>
+						<article class="new__card swiper-slide">
+							<span class="new__tag">New</span> <img src="assets/img/new4.png"
+								alt="" class="new__img">
+
+							<div class="new__data">
+								<h3 class="new__title">Portuguese rose</h3>
+								<span class="new__price">$1590</span>
+							</div>
+
+							<button class="button new__button">ADD TO CART</button>
+						</article>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--==================== NEWSLETTER ====================-->
+		<section class="newsletter section container">
+			<div class="newsletter__bg grid">
+				<div>
+					<h2 class="newsletter__title">
+						Subscribe Our <br> Newsletter
+					</h2>
+					<p class="newsletter__description">Don't miss out on your
+						discounts. Subscribe to our email newsletter to get the best
+						offers, discounts, coupons, gifts and much more.</p>
+				</div>
+				<!-- <form th:action="/TrangChu/Email" th:object="${email}" method="post">				
+						<input type="email" placeholder="Email"
+						class="newsletter__input" th:field="*{email}">
+						<input type="text" placeholder="Fullname"
+						class="newsletter__input" th:field="*{fullname}">
+						<textarea th:field="*{noidung}" rows="3" cols="" placeholder="Nội Dung" class="newsletter__input"></textarea>						
+					<button class="button">SEND</button>
+				</form> -->
+			</div>
+		</section>
+	</main>
+	<!--==================== FOOTER ====================-->
+	<footer class="footer section">
+		<div class="footer__container container grid">
+			<div class="footer__content">
+				<h3 class="footer__title">Our information</h3>
+				<ul class="footer__list">
+					<li>1234 - Peru</li>
+					<li>La Libertad 43210</li>
+					<li>123-456-789</li>
+				</ul>
+			</div>
+			<div class="footer__content">
+				<h3 class="footer__title">About Us</h3>
+				<ul class="footer__links">
+					<li><a href="#" class="footer__link">Support Center</a></li>
+					<li><a href="#" class="footer__link">Customer Support</a></li>
+					<li><a href="#" class="footer__link">About Us</a></li>
+					<li><a href="#" class="footer__link">Copy Right</a></li>
+				</ul>
+			</div>
+			<div class="footer__content">
+				<h3 class="footer__title">Product</h3>
+				<ul class="footer__links">
+					<li><a href="#" class="footer__link">Road bikes</a></li>
+					<li><a href="#" class="footer__link">Mountain bikes</a></li>
+					<li><a href="#" class="footer__link">Electric</a></li>
+					<li><a href="#" class="footer__link">Accesories</a></li>
+				</ul>
+			</div>
+			<div class="footer__content">
+				<h3 class="footer__title">Social</h3>
+				<ul class="footer__social">
+					<a href="https://www.facebook.com/" target="_blank"
+						class="footer__social-link"> <i class='bx bxl-facebook'></i>
+					</a>
+					<a href="https://twitter.com/" target="_blank"
+						class="footer__social-link"> <i class='bx bxl-twitter'></i>
+					</a>
+					<a href="https://www.instagram.com/" target="_blank"
+						class="footer__social-link"> <i class='bx bxl-instagram'></i>
+					</a>
+				</ul>
+			</div>
+		</div>
+		<span class="footer__copy">&#169; Bedimcode. All rigths
+			reserved</span>
+	</footer>
+	<!--=============== SCROLL UP ===============-->
+	<a href="#" class="scrollup" id="scroll-up"> <i
+		class='bx bx-up-arrow-alt scrollup__icon'></i>
+	</a>
+	<!--=============== SWIPER JS ===============-->
+	<script src="assets/js/swiper-bundle.min.js"></script>
+	<!--=============== MAIN JS ===============-->
+	<script src="assets/js/main.js"></script>
+</body>
+</html>
